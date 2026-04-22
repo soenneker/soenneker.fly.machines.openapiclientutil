@@ -1,20 +1,19 @@
 using Soenneker.Fly.Machines.OpenApiClientUtil.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Fly.Machines.OpenApiClientUtil.Tests;
 
-[Collection("Collection")]
-public sealed class FlyMachinesOpenApiClientUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class FlyMachinesOpenApiClientUtilTests : HostedUnitTest
 {
     private readonly IFlyMachinesOpenApiClientUtil _openapiclientutil;
 
-    public FlyMachinesOpenApiClientUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public FlyMachinesOpenApiClientUtilTests(Host host) : base(host)
     {
         _openapiclientutil = Resolve<IFlyMachinesOpenApiClientUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
