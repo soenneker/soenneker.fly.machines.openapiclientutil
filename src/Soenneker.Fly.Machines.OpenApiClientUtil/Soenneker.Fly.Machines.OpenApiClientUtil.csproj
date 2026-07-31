@@ -41,7 +41,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Fly.Machines.OpenApiClient" Version="4.0.48" />
+        <PackageReference Include="Soenneker.Fly.Machines.OpenApiClient" Version="4.0.52" />
         <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.38" />
         <PackageReference Include="Soenneker.Fly.Machines.HttpClients" Version="4.0.67" />
         <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.817" />
