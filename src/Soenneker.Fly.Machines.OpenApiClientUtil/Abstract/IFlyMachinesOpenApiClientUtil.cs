@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 namespace Soenneker.Fly.Machines.OpenApiClientUtil.Abstract;
 
 /// <summary>
-/// Exposes a cached OpenAPI client instance.
+/// Provides lazy access to a cached Fly Machines API client.
 /// </summary>
 public interface IFlyMachinesOpenApiClientUtil: IDisposable, IAsyncDisposable
 {
     /// <summary>
-    /// Gets the value.
+    /// Gets the cached Fly Machines API client, creating it on first use.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <returns>The generated Fly Machines API client.</returns>
     ValueTask<FlyMachinesOpenApiClient> Get(CancellationToken cancellationToken = default);
 }

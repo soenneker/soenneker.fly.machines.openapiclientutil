@@ -2,34 +2,27 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
-using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.ValueTask;
 using Soenneker.Fly.Machines.HttpClients.Abstract;
 using Soenneker.Fly.Machines.OpenApiClientUtil.Abstract;
 using Soenneker.Fly.Machines.OpenApiClient;
-using Soenneker.Kiota.GenericAuthenticationProvider;
 using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Fly.Machines.OpenApiClientUtil;
 
-///<inheritdoc cref="IFlyMachinesOpenApiClientUtil"/>
 public sealed class FlyMachinesOpenApiClientUtil : IFlyMachinesOpenApiClientUtil
 {
     private readonly AsyncSingleton<FlyMachinesOpenApiClient> _client;
 
-    public FlyMachinesOpenApiClientUtil(IFlyMachinesOpenApiHttpClient httpClientUtil, IConfiguration configuration)
+    public FlyMachinesOpenApiClientUtil(IFlyMachinesOpenApiHttpClient httpClientUtil)
     {
         _client = new AsyncSingleton<FlyMachinesOpenApiClient>(async token =>
         {
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
-            var apiKey = configuration.GetValueStrict<string>("Fly:ApiKey");
-            string authHeaderValueTemplate = configuration["Machines:AuthHeaderValueTemplate"] ?? "Bearer {token}";
-            string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
-
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(headerValue: authHeaderValue), httpClient: httpClient);
+            var requestAdapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
 
             return new FlyMachinesOpenApiClient(requestAdapter);
         });
@@ -40,18 +33,11 @@ public sealed class FlyMachinesOpenApiClientUtil : IFlyMachinesOpenApiClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();
