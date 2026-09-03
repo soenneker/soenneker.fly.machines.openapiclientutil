@@ -41,7 +41,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Fly.Machines.OpenApiClient" Version="4.0.61" />
+        <PackageReference Include="Soenneker.Fly.Machines.OpenApiClient" Version="4.0.62" />
         <PackageReference Include="Soenneker.Fly.Machines.HttpClients" Version="4.0.96" />
         <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.830" />
     </ItemGroup>
