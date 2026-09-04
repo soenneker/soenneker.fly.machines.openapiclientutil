@@ -12,6 +12,7 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Fly.Machines.OpenApiClientUtil;
 
+/// <inheritdoc cref="IFlyMachinesOpenApiClientUtil" />
 public sealed class FlyMachinesOpenApiClientUtil : IFlyMachinesOpenApiClientUtil
 {
     private readonly AsyncSingleton<FlyMachinesOpenApiClient> _client;
