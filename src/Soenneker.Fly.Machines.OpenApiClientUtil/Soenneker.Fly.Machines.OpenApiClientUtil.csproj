@@ -42,6 +42,6 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Fly.Machines.OpenApiClient" Version="4.0.73" />
-        <PackageReference Include="Soenneker.Fly.Machines.HttpClients" Version="4.0.121" />
+        <PackageReference Include="Soenneker.Fly.Machines.HttpClients" Version="4.0.122" />
     </ItemGroup>
 </Project>
